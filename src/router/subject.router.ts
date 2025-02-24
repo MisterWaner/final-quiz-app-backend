@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { SubjectController } from '../infrastructure/subject/subject.controller';
 import { SubjectService } from '../infrastructure/subject/subject.service';
 import { ISubject } from '../domain/types';

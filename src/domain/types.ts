@@ -8,8 +8,8 @@ export interface IScore {
     id: number;
     value: number;
     date: Date;
-    user: IUser;
-    type: IBranch;
+    user: IUser['username'];
+    type: IBranch['name'];
 }
 
 export interface ISubject {
@@ -20,21 +20,21 @@ export interface ISubject {
 export interface IBranch {
     id: number;
     name: string;
-    subject: ISubject;
+    subject: ISubject['name'];
 }
 
 export type DirectQuestion = {
     id: number;
     question: string;
     answer: string;
-    type: IBranch;
+    type: IBranch['name'];
 };
 
 export type MultipleChoiceQuestion = {
     id: number;
     question: string;
     answer: string;
-    type: IBranch;
+    type: IBranch['name'];
     choices: string[];
 };
 
@@ -43,14 +43,15 @@ export type TrueFalseQuestion = {
     question: string;
     answer: string;
     choices: boolean[];
-    type: IBranch;
+    type: IBranch['name'];
 };
 
 export interface IQuiz {
     id: number;
     length: number;
     questions: Question[];
-    subject: ISubject;
+    subject: ISubject['name'];
+    type: IBranch['name'];
 }
 
 export type Question =

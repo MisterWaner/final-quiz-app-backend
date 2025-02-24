@@ -1,9 +1,9 @@
-import { Branch } from "../domain/types";
+import { Branch } from "../domain/branch/Branch"
 
 export interface BranchRepository {
-    createBranch(): Promise<void>
+    createBranch(branch: Branch): Promise<void>
     getBranches(): Promise<Branch[]>
-    getBranch(id: string): Promise<Branch | null>
-    deleteBranch(id: string): Promise<void>
-    updateBranch(id: string): Promise<void>
+    getBranch(id: number): Promise<Branch | null>
+    deleteBranch(id: number): Promise<void>
+    updateBranch(id: number, name: string, subject: string): Promise<void>
 }
