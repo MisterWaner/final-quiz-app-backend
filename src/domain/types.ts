@@ -1,40 +1,40 @@
-export type User = {
+export interface IUser {
     id: string;
     username: string;
     password: string;
-};
+}
 
-export type Score = {
+export interface IScore {
     id: number;
     value: number;
     date: Date;
-    user: User;
-    type: Branch;
-};
+    user: IUser;
+    type: IBranch;
+}
 
-export type Subject = {
+export interface ISubject {
     id: number;
     name: string;
-};
+}
 
-export type Branch = {
+export interface IBranch {
     id: number;
     name: string;
-    subject: Subject;
-};
+    subject: ISubject;
+}
 
 export type DirectQuestion = {
     id: number;
     question: string;
     answer: string;
-    type: Branch;
+    type: IBranch;
 };
 
 export type MultipleChoiceQuestion = {
     id: number;
     question: string;
     answer: string;
-    type: Branch;
+    type: IBranch;
     choices: string[];
 };
 
@@ -43,15 +43,15 @@ export type TrueFalseQuestion = {
     question: string;
     answer: string;
     choices: boolean[];
-    type: Branch;
+    type: IBranch;
 };
 
-export type Quiz = {
+export interface IQuiz {
     id: number;
     length: number;
     questions: Question[];
-    subject: Subject;
-};
+    subject: ISubject;
+}
 
 export type Question =
     | DirectQuestion

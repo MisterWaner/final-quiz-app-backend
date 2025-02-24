@@ -1,4 +1,4 @@
-import { Subject } from '../../domain/types';
+import { Subject } from '../../domain/subject/Subject';
 import { SubjectRepository } from '../../application/subject.repository';
 import { db } from '../database/sqlite';
 
@@ -26,7 +26,7 @@ export class SubjectService implements SubjectRepository {
         return subject;
     }
 
-    async updateSubject(id: number): Promise<void> {
+    async updateSubject(id: number, name: string): Promise<void> {
         const subject = await this.getSubject(id);
 
         if (!subject) {
@@ -34,7 +34,7 @@ export class SubjectService implements SubjectRepository {
         }
 
         db.prepare('UPDATE subjects SET name = ? WHERE id = ?').run(
-            subject.name,
+            name,
             id
         );
     }

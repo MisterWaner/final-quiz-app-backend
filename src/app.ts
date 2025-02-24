@@ -9,6 +9,6 @@ const fastify = Fastify({
 fastify.get("/", (req, res) => {
     res.send("API démarrée et opérationnelle");
 });
-subjectRouter(fastify);
+fastify.register(subjectRouter);
 
 export default fastify;

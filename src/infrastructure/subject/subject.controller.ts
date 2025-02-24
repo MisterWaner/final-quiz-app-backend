@@ -1,59 +1,79 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { SubjectService } from './subject';
-import { Subject } from '../../domain/types';
+import { Subject } from '../../domain/subject/Subject';
+import { SubjectService } from './subject.service';
 
 export class SubjectController {
-    constructor(private subjectService: SubjectService) {}
+    constructor(private readonly subjectService: SubjectService) {}
 
-    async createSubject(request: FastifyRequest, reply: FastifyReply) {
+    createSubject = async (
+        request: FastifyRequest,
+        reply: FastifyReply
+    ): Promise<void> => {
         try {
-            const subject: Subject = request.body as Subject;
+            const subject = request.body as Subject;
+            if (!subject.name) {
+                reply.status(400).send('Subject name is required');
+                return;
+            }
+            const subjectExists = (
+                await this.subjectService.getSubjects()
+            ).find((s) => s.name === subject.name);
+            if (subjectExists) {
+                reply.status(400).send('Subject already exists');
+                return;
+            }
             await this.subjectService.createSubject(subject);
-            reply
-                .status(201)
-                .send(`Subject ${subject.name} created successfully`);
+            reply.status(201).send('Subject created successfully');
         } catch (error) {
             reply.status(500).send(error);
         }
-    }
+    };
 
-    async getSubjects(request: FastifyRequest, reply: FastifyReply) {
+    getSubjects = async (request: FastifyRequest, reply: FastifyReply) => {
         const subjects = await this.subjectService.getSubjects();
         if (!subjects) {
             reply.status(404).send('Subjects not found');
-            return;
         }
         reply.status(200).send(subjects);
-    }
+    };
 
-    async getSubject(
+    getSubject = async (
         request: FastifyRequest<{ Params: { id: number } }>,
         reply: FastifyReply
-    ) {
-        const id = request.params.id;
-        const subject = await this.subjectService.getSubject(id);
-        reply.status(200).send(subject);
-    }
+    ) => {
+        try {
+            const { id } = request.params;
+            const subject = await this.subjectService.getSubject(id);
+            if (!subject) {
+                reply.status(404).send('Subject not found');
+                return;
+            }
+            reply.status(200).send(subject);
+        } catch (error) {
+            reply.status(500).send(error);
+        }
+    };
 
-    async updateSubject(
+    updateSubject = async (
         request: FastifyRequest<{ Params: { id: number } }>,
         reply: FastifyReply
-    ) {
-        const id = request.params.id;
+    ) => {
+        const { id } = request.params;
+        const { name } = request.body as Subject;
         const subject = await this.subjectService.getSubject(id);
         if (!subject) {
             reply.status(404).send('Subject not found');
             return;
         }
-        await this.subjectService.updateSubject(id);
+        await this.subjectService.updateSubject(id, name);
         reply.status(200).send('Subject updated successfully');
-    }
+    };
 
-    async deleteSubject(
+    deleteSubject = async (
         request: FastifyRequest<{ Params: { id: number } }>,
         reply: FastifyReply
-    ) {
-        const id = request.params.id;
+    ) => {
+        const { id } = request.params;
         const subject = await this.subjectService.getSubject(id);
         if (!subject) {
             reply.status(404).send('Subject not found');
@@ -61,5 +81,5 @@ export class SubjectController {
         }
         await this.subjectService.deleteSubject(id);
         reply.status(200).send('Subject deleted successfully');
-    }
+    };
 }
