@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Subject } from '../../domain/subject/Subject';
+import { Subject } from '../../domain/Subject';
 import { SubjectService } from './subject.service';
 
 export class SubjectController {

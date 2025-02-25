@@ -1,4 +1,4 @@
-import { Subject } from '../../domain/subject/Subject';
+import { Subject } from '../../domain/Subject';
 import { SubjectRepository } from '../../application/subject.repository';
 import { db } from '../database/sqlite';
 
@@ -33,10 +33,7 @@ export class SubjectService implements SubjectRepository {
             throw new Error('Subject not found');
         }
 
-        db.prepare('UPDATE subjects SET name = ? WHERE id = ?').run(
-            name,
-            id
-        );
+        db.prepare('UPDATE subjects SET name = ? WHERE id = ?').run(name, id);
     }
 
     async deleteSubject(id: number): Promise<void> {

@@ -6,7 +6,7 @@ export function initDb() {
     db.exec(`
         CREATE TABLE IF NOT EXISTS users (
             id TEXT PRIMARY KEY,
-            username TEXT NOT NULL,
+            username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL
         );
 
@@ -15,7 +15,9 @@ export function initDb() {
             value INTEGER NOT NULL,
             date TEXT NOT NULL,
             user_id TEXT NOT NULL,
-            branch_id INTEGER NOT NULL
+            theme_id INTEGER NOT NULL,
+            FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            FOREIGN KEY(theme_id) REFERENCES themes(id) ON DELETE CASCADE ON UPDATE CASCADE
         );
 
         CREATE TABLE IF NOT EXISTS subjects (
@@ -23,10 +25,11 @@ export function initDb() {
             name TEXT NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS branches (
+        CREATE TABLE IF NOT EXISTS themes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            subject_id INTEGER NOT NULL
+            subject_id INTEGER NOT NULL,
+            FOREIGN KEY(subject_id) REFERENCES subjects(id) ON DELETE CASCADE ON UPDATE CASCADE
         );
     `);
 

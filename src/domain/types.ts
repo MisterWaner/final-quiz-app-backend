@@ -27,14 +27,14 @@ export type DirectQuestion = {
     id: number;
     question: string;
     answer: string;
-    type: IBranch['name'];
+    themeId: number;
 };
 
 export type MultipleChoiceQuestion = {
     id: number;
     question: string;
     answer: string;
-    type: IBranch['name'];
+    themeId: number;
     choices: string[];
 };
 
@@ -43,16 +43,16 @@ export type TrueFalseQuestion = {
     question: string;
     answer: string;
     choices: boolean[];
-    type: IBranch['name'];
+    themeId: number;
 };
 
-export interface IQuiz {
+export type Quiz = {
     id: number;
     length: number;
     questions: Question[];
-    subject: ISubject['name'];
-    type: IBranch['name'];
-}
+    subjectId: number;
+    themeId: number;
+};
 
 export type Question =
     | DirectQuestion

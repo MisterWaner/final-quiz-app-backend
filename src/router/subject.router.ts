@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { SubjectController } from '../infrastructure/subject/subject.controller';
 import { SubjectService } from '../infrastructure/subject/subject.service';
-import { ISubject } from '../domain/types';
+import { Subject } from '../domain/Subject';
 
 const subjectService = new SubjectService();
 const subjectController = new SubjectController(subjectService);
@@ -12,12 +12,12 @@ export async function subjectRouter(fastify: FastifyInstance) {
         {},
         subjectController.createSubject
     );
-    fastify.get<{ Params: { id: number }; Reply: ISubject }>(
+    fastify.get<{ Params: { id: number }; Reply: Subject }>(
         '/subjects/:id',
         {},
         subjectController.getSubject
     );
-    fastify.get<{ Reply: ISubject[] }>(
+    fastify.get<{ Reply: Subject[] }>(
         '/subjects',
         {},
         subjectController.getSubjects
