@@ -1,4 +1,5 @@
-import { Score, User } from "../domain/types";
+import { Score } from "../domain/Score"
+import { User } from "../domain/User"
 
 export interface ScoreRepository {
     createScore(score: Score): Promise<void>
