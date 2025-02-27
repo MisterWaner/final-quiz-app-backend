@@ -6,8 +6,7 @@ import { generateId } from "../../lib/id-generator";
 import { db } from "../database/sqlite";
 
 export class UserService implements UserRepository {
-    async createAccount(user: User): Promise<void> {
-        const { username, password } = user;
+    async createAccount(username: string, password: string): Promise<void> {
         const id = await generateId();
         const hashedPassword = hashPassword(password);
 
@@ -64,9 +63,5 @@ export class UserService implements UserRepository {
         }
 
         return user;
-    }
-    
-    logout(): Promise<void> {
-        throw new Error("Method not implemented.");
     }
 }
