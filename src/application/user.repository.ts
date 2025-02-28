@@ -3,6 +3,7 @@ import { User } from "../domain/User";
 export interface UserRepository {
     createAccount(username: string, password: string): Promise<void>;
     getUser(id: string): Promise<User | null>;
+    getUserByToken(token: string): Promise<User | null>;
     getUsers(): Promise<User[]>;
     updateUsername(id: string, username: string): Promise<void>;
     updatePassword(id: string, password: string): Promise<void>;

@@ -4,7 +4,6 @@ import { UserService } from './user.service';
 import { hashPassword } from '../../lib/password-hasher';
 import { generateToken } from '../../lib/token-generator';
 
-
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
@@ -41,6 +40,7 @@ export class UserController {
         try {
             const { id } = request.params;
             const user = await this.userService.getUser(id);
+
             if (!user) {
                 reply.status(404).send('User not found');
                 return;
@@ -69,8 +69,16 @@ export class UserController {
     ) => {
         try {
             const { id } = request.params;
+            const { token } = request.cookies;
+
+            if (!token) {
+                reply.status(401).send('Unauthorized');
+                return;
+            }
+
+            const user = await this.userService.getUserByToken(token);
+
             const { username } = request.body as User;
-            const user = await this.userService.getUser(id);
 
             if (!user) {
                 reply.status(404).send('User not found');
@@ -90,20 +98,29 @@ export class UserController {
     ) => {
         try {
             const { id } = request.params;
+            const { token } = request.cookies;
+
+            if (!token) {
+                reply.status(401).send('Unauthorized');
+                return;
+            }
+
+            const user = await this.userService.getUserByToken(token);
+            if (!user) {
+                reply.status(401).send('Unauthorized');
+                return;
+            }
+
             const { password } = request.body as User;
 
             if (!password) {
                 reply.status(400).send('Password is required');
                 return;
             }
-            const user = await this.userService.getUser(id);
-            if (!user) {
-                reply.status(404).send('User not found');
-                return;
-            }
 
             const hashedPassword = await hashPassword(password);
             await this.userService.updatePassword(id, hashedPassword);
+
             reply.status(200).send('Password updated successfully');
         } catch (error) {
             reply.status(500).send(error);
@@ -144,12 +161,21 @@ export class UserController {
                 return;
             }
 
+            const token = await generateToken(user);
 
-
+            reply.setCookie('token', token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+                maxAge: 3600 * 24,
+            });
+            reply.status(200).send('Logged in successfully');
         } catch (error) {
             reply.status(500).send(error);
         }
     };
 
-    logout = async (request: FastifyRequest, reply: FastifyReply) => {};
+    logout = async (request: FastifyRequest, reply: FastifyReply) => {
+        reply.clearCookie('token').status(200).send('Logged out successfully');
+    };
 }

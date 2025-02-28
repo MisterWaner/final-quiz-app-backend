@@ -4,6 +4,7 @@ import { hashPassword } from "../../lib/password-hasher";
 import { comparePassword } from "../../lib/password-compare";
 import { generateId } from "../../lib/id-generator";
 import { db } from "../database/sqlite";
+import { verifyToken } from "../../lib/token-verify";
 
 export class UserService implements UserRepository {
     async createAccount(username: string, password: string): Promise<void> {
@@ -15,6 +16,13 @@ export class UserService implements UserRepository {
 
     async getUser(id: string): Promise<User | null> {
         const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User;
+        return user;
+    }
+
+    async getUserByToken(token: string): Promise<User | null> {
+        const { id } = await verifyToken(token);
+        const user = this.getUser(id)
+
         return user;
     }
 

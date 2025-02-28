@@ -14,7 +14,7 @@ export class ThemeService implements ThemeRepository {
         if (!subjectExists) {
             throw new Error('Subject not found');
         }
-        db.prepare('INSERT INTO themes (name, subject) VALUES (?, ?)').run(
+        db.prepare('INSERT INTO themes (name, subject_id) VALUES (?, ?)').run(
             name,
             subjectId
         );
