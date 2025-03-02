@@ -4,7 +4,7 @@ export class Score {
         public value: number,
         public date: Date,
         public userId: string,
-        public branchId: number,
+        public themeId: number,
         public subjectId: number
     ) {}
 }

@@ -1,5 +1,8 @@
-import { Question } from "../domain/types";
+import { Question } from "../domain/Question";
 
-export interface QuestionRepository {
-    generateQuestion(): Promise<Question>
+export interface MathQuestionRepository {
+    generateAddition(): Question
+    generateSubstraction(): Question
+    generateMultiplication(): Question
+    generateRandomOperation(): Question
 }

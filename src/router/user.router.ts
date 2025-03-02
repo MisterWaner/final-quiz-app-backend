@@ -15,12 +15,12 @@ export async function userRouter(fastify: FastifyInstance) {
     );
     fastify.get<{ Reply: User[] }>('/users', {}, userController.getUsers);
     fastify.put<{ Params: { id: string }; Body: User }>(
-        '/users/:id',
+        '/users/:id/username',
         {},
         userController.updateUsername
     );
     fastify.put<{ Params: { id: string }; Body: User }>(
-        '/users/:id',
+        '/users/:id/pwd',
         {},
         userController.updatePassword
     );
