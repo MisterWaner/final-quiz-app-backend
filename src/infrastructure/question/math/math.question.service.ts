@@ -1,9 +1,10 @@
 import { Question } from '../../../domain/Question';
 import { MathQuestionRepository } from '../../../application/question.repository';
+import { generateNumberId } from '../../../lib/id-generator';
 
 export class MathQuestionService implements MathQuestionRepository {
     generateAddition(): Question {
-        const id = Math.floor(Math.random() * 1000);
+        const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 100);
         const number2 = Math.floor(Math.random() * 100);
         const questionText = `Quelle est le résultat de ${number1} + ${number2} ?`;
@@ -14,7 +15,7 @@ export class MathQuestionService implements MathQuestionRepository {
     }
 
     generateSubstraction(): Question {
-        const id = Math.floor(Math.random() * 1000);
+        const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 100);
         const number2 = Math.floor(Math.random() * 100);
         const themeId = 2;
@@ -36,7 +37,7 @@ export class MathQuestionService implements MathQuestionRepository {
     }
 
     generateMultiplication(): Question {
-        const id = Math.floor(Math.random() * 1000);
+        const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 10);
         const number2 = Math.floor(Math.random() * 10);
         const questionText = `Quel est le résultat de ${number1} x ${number2} ?`;

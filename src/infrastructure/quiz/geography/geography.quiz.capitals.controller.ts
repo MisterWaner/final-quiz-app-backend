@@ -1,18 +1,23 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { GeographyCapitalsQuestionService } from '../../question/geography/geography.capitals.question.service';
+import {
+    generateAfricanCountriesQuestion,
+    generateAmericanCountriesQuestion,
+    generateAsianCountriesQuestion,
+    generateEuropeanCountriesQuestion,
+    generateOceanicCountriesQuestion,
+    generateRandomCountriesQuestion,
+} from '../../question/geography/geography.capitals.question.service';
+
 import { MultipleChoiceQuestion } from '../../../domain/Question';
 
 export class GeographyCapitalsQuizController {
-    constructor(
-        private readonly geographyCapitalsQuestionService: GeographyCapitalsQuestionService
-    ) {}
+    constructor() {}
 
     getEuropeanCapitals(request: FastifyRequest, reply: FastifyReply) {
         const length: number = 10;
         const questions: MultipleChoiceQuestion[] = Array.from(
             { length },
-            this.geographyCapitalsQuestionService
-                .generateEuropeanCountriesQuestion
+            generateEuropeanCountriesQuestion
         );
 
         reply.status(200).send(questions);
@@ -22,8 +27,7 @@ export class GeographyCapitalsQuizController {
         const length: number = 10;
         const questions: MultipleChoiceQuestion[] = Array.from(
             { length },
-            this.geographyCapitalsQuestionService
-                .generateAfricanCountriesQuestion
+            generateAfricanCountriesQuestion
         );
 
         reply.status(200).send(questions);
@@ -33,7 +37,7 @@ export class GeographyCapitalsQuizController {
         const length: number = 10;
         const questions: MultipleChoiceQuestion[] = Array.from(
             { length },
-            this.geographyCapitalsQuestionService.generateAsianCountriesQuestion
+            generateAsianCountriesQuestion
         );
 
         reply.status(200).send(questions);
@@ -43,8 +47,7 @@ export class GeographyCapitalsQuizController {
         const length: number = 10;
         const questions: MultipleChoiceQuestion[] = Array.from(
             { length },
-            this.geographyCapitalsQuestionService
-                .generateAmericanCountriesQuestion
+            generateAmericanCountriesQuestion
         );
 
         reply.status(200).send(questions);
@@ -54,8 +57,7 @@ export class GeographyCapitalsQuizController {
         const length: number = 10;
         const questions: MultipleChoiceQuestion[] = Array.from(
             { length },
-            this.geographyCapitalsQuestionService
-                .generateOceanicCountriesQuestion
+            generateOceanicCountriesQuestion
         );
 
         reply.status(200).send(questions);
@@ -65,8 +67,7 @@ export class GeographyCapitalsQuizController {
         const length: number = 10;
         const questions: MultipleChoiceQuestion[] = Array.from(
             { length },
-            this.geographyCapitalsQuestionService
-                .generateRandomCountriesQuestion
+            generateRandomCountriesQuestion
         );
 
         reply.status(200).send(questions);

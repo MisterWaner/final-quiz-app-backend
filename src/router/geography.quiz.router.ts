@@ -1,12 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { GeographyCapitalsQuizController } from '../infrastructure/quiz/geography/geography.quiz.capitals.controller';
-import { GeographyCapitalsQuestionService } from '../infrastructure/question/geography/geography.capitals.question.service';
 import { MultipleChoiceQuestion } from '../domain/Question';
 
-const geographyCapitalsService = new GeographyCapitalsQuestionService();
-const geographyCapitalsController = new GeographyCapitalsQuizController(
-    geographyCapitalsService
-);
+const geographyCapitalsController = new GeographyCapitalsQuizController();
 
 export async function geographyQuizRouter(fastify: FastifyInstance) {
     fastify.get<{ Reply: MultipleChoiceQuestion[] }>(

@@ -2,13 +2,13 @@ import { User } from "../../domain/User";
 import { UserRepository } from "../../application/user.repository";
 import { hashPassword } from "../../lib/password-hasher";
 import { comparePassword } from "../../lib/password-compare";
-import { generateId } from "../../lib/id-generator";
+import { generateNanoid } from "../../lib/id-generator";
 import { db } from "../database/sqlite";
 import { verifyToken } from "../../lib/token-verify";
 
 export class UserService implements UserRepository {
     async createAccount(username: string, password: string): Promise<void> {
-        const id = await generateId();
+        const id = await generateNanoid();
         const hashedPassword = hashPassword(password);
 
         db.prepare('INSERT INTO users (id, username, password) VALUES (?, ?, ?)').run(id, username, hashedPassword);
