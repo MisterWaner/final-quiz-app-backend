@@ -23,7 +23,7 @@ export async function mathQuizRouter(fastify: FastifyInstance) {
         mathQuizController.getMultiplication
     );
     fastify.get<{ Reply: Question[] }>(
-        '/math/random-operation',
+        '/math/random-operations',
         {},
         mathQuizController.getRandomOperation
     );

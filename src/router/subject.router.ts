@@ -22,6 +22,11 @@ export async function subjectRouter(fastify: FastifyInstance) {
         {},
         subjectController.getSubjects
     );
+    fastify.get<{ Reply: Subject[] }>(
+        '/subjects/with-themes',
+        {},
+        subjectController.getSubjectsWithThemes
+    );
     fastify.put<{ Params: { id: number }; Body: { name: string } }>(
         '/subjects/:id',
         {},

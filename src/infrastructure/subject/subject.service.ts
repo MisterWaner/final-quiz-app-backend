@@ -2,6 +2,12 @@ import { Subject } from '../../domain/Subject';
 import { SubjectRepository } from '../../application/subject.repository';
 import { db } from '../database/sqlite';
 
+type RawSubject = {
+    subject_id: number;
+    subject_name: string;
+    themes: string;
+}
+
 export class SubjectService implements SubjectRepository {
     async createSubject(subject: Subject): Promise<void> {
         const name = subject.name;
@@ -17,6 +23,36 @@ export class SubjectService implements SubjectRepository {
             throw new Error('Subjects not found');
         }
         return subjects;
+    }
+
+    async getSubjectsWithThemes(): Promise<Subject[]> {
+        const subjects = db
+            .prepare(
+                `SELECT 
+                    s.id AS subject_id,
+                    s.name AS subject_name,
+                    COALESCE(json_group_array(
+                        json_object('id', t.id, 'name', t.name, 'path', t.path)
+                    ), '[]') AS themes
+                FROM subjects s
+                LEFT JOIN themes t ON s.id = t.subject_id
+                GROUP BY s.id, s.name
+                ORDER BY s.id;
+                `
+            )
+            .all() as RawSubject[];
+
+        if (!subjects) {
+            throw new Error('Subjects not found');
+        }
+
+        const parsedSubjects = subjects.map((subject) => ({
+            id: subject.subject_id,
+            name: subject.subject_name,
+            themes: JSON.parse(subject.themes),
+        }))
+
+        return parsedSubjects;
     }
 
     async getSubject(id: number): Promise<Subject> {

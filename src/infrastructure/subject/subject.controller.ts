@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { Subject } from '../../domain/Subject';
 import { SubjectService } from './subject.service';
+import { request } from 'http';
 
 export class SubjectController {
     constructor(private readonly subjectService: SubjectService) {}
@@ -31,6 +32,14 @@ export class SubjectController {
 
     getSubjects = async (request: FastifyRequest, reply: FastifyReply) => {
         const subjects = await this.subjectService.getSubjects();
+        if (!subjects) {
+            reply.status(404).send('Subjects not found');
+        }
+        reply.status(200).send(subjects);
+    };
+
+    getSubjectsWithThemes = async (request: FastifyRequest, reply: FastifyReply) => {
+        const subjects = await this.subjectService.getSubjectsWithThemes();
         if (!subjects) {
             reply.status(404).send('Subjects not found');
         }
