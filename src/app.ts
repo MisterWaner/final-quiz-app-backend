@@ -5,8 +5,7 @@ import fastifyCookie from "@fastify/cookie";
 import { subjectRouter } from "./router/subject.router";
 import { themeRouter } from "./router/theme.router";
 import { userRouter } from "./router/user.router";
-import { mathQuizRouter } from "./router/math.quiz.router";
-import { geographyQuizRouter } from "./router/geography.quiz.router";
+import { questionsRouter } from "./router/questions.router";
 
 const fastify = Fastify({
     logger: true,
@@ -23,7 +22,6 @@ fastify.get("/", (req, res) => {
 fastify.register(subjectRouter);
 fastify.register(themeRouter);
 fastify.register(userRouter);
-fastify.register(mathQuizRouter);
-fastify.register(geographyQuizRouter);
+fastify.register(questionsRouter);
 
 export default fastify;
