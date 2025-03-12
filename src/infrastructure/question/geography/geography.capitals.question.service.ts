@@ -23,9 +23,11 @@ function getRandomCountry(array: Country[]): Country {
 
 export function generateEuropeanCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-
+    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(europeanCountries);
+    const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
+    const correctAnswer = selectedCountry.capital;
 
     // Generate 3 wrong answers.
     const wrongAnswers = new Set<string>();
@@ -42,19 +44,22 @@ export function generateEuropeanCountriesQuestion(): MultipleChoiceQuestion {
     options.push(selectedCountry.capital);
     shuffleOptionsArray(options);
 
-    return {
+    return new MultipleChoiceQuestion(
         id,
-        questionText: `Quelle est la capitale de ${selectedCountry.name} ?`,
-        choices: options,
-        correctAnswer: selectedCountry.capital,
-        themeId: 4,
-    };
+        'multiple-choice',
+        questionText,
+        correctAnswer,
+        themeId,
+        options
+    );
 }
 export function generateAfricanCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-
+    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(africanCountries);
+    const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
+    const correctAnswer = selectedCountry.capital;
 
     // Generate 3 wrong answers.
     const wrongAnswers = new Set<string>();
@@ -71,20 +76,22 @@ export function generateAfricanCountriesQuestion(): MultipleChoiceQuestion {
     options.push(selectedCountry.capital);
     shuffleOptionsArray(options);
 
-    return {
+    return new MultipleChoiceQuestion(
         id,
-        questionText: `Quelle est la capitale de ${selectedCountry.name} ?`,
-        choices: options,
-        correctAnswer: selectedCountry.capital,
-        themeId: 4,
-    };
+        'multiple-choice',
+        questionText,
+        correctAnswer,
+        themeId,
+        options
+    );
 }
 export function generateAsianCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-
+    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(asianCountries);
-
+    const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
+    const correctAnswer = selectedCountry.capital;
     // Generate 3 wrong answers.
     const wrongAnswers = new Set<string>();
     while (wrongAnswers.size < 3) {
@@ -100,20 +107,22 @@ export function generateAsianCountriesQuestion(): MultipleChoiceQuestion {
     options.push(selectedCountry.capital);
     shuffleOptionsArray(options);
 
-    return {
+    return new MultipleChoiceQuestion(
         id,
-        questionText: `Quelle est la capitale de ${selectedCountry.name} ?`,
-        choices: options,
-        correctAnswer: selectedCountry.capital,
-        themeId: 4,
-    };
+        'multiple-choice',
+        questionText,
+        correctAnswer,
+        themeId,
+        options
+    );
 }
 export function generateAmericanCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-
+    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(americanCountries);
-
+    const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
+    const correctAnswer = selectedCountry.capital;
     // Generate 3 wrong answers.
     const wrongAnswers = new Set<string>();
     while (wrongAnswers.size < 3) {
@@ -129,20 +138,22 @@ export function generateAmericanCountriesQuestion(): MultipleChoiceQuestion {
     options.push(selectedCountry.capital);
     shuffleOptionsArray(options);
 
-    return {
+    return new MultipleChoiceQuestion(
         id,
-        questionText: `Quelle est la capitale de ${selectedCountry.name} ?`,
-        choices: options,
-        correctAnswer: selectedCountry.capital,
-        themeId: 4,
-    };
+        'multiple-choice',
+        questionText,
+        correctAnswer,
+        themeId,
+        options
+    );
 }
 export function generateOceanicCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-
+    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(oceanicCountries);
-
+    const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
+    const correctAnswer = selectedCountry.capital;
     // Generate 3 wrong answers.
     const wrongAnswers = new Set<string>();
     while (wrongAnswers.size < 3) {
@@ -158,17 +169,19 @@ export function generateOceanicCountriesQuestion(): MultipleChoiceQuestion {
     options.push(selectedCountry.capital);
     shuffleOptionsArray(options);
 
-    return {
+    return new MultipleChoiceQuestion(
         id,
-        questionText: `Quelle est la capitale de ${selectedCountry.name} ?`,
-        choices: options,
-        correctAnswer: selectedCountry.capital,
-        themeId: 4,
-    };
+        'multiple-choice',
+        questionText,
+        correctAnswer,
+        themeId,
+        options
+    );
 }
 
 export function generateRandomCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
+    const themeId: number = 4;
     const allCountries = [
         ...europeanCountries,
         ...africanCountries,
@@ -178,7 +191,8 @@ export function generateRandomCountriesQuestion(): MultipleChoiceQuestion {
     ];
 
     const selectedCountry = getRandomCountry(allCountries);
-
+    const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
+    const correctAnswer = selectedCountry.capital;
     // generate 3 wrong answers
     const wrongAnswers = new Set<string>();
     while (wrongAnswers.size < 3) {
@@ -194,11 +208,12 @@ export function generateRandomCountriesQuestion(): MultipleChoiceQuestion {
     options.push(selectedCountry.capital);
     shuffleOptionsArray(options);
 
-    return {
+    return new MultipleChoiceQuestion(
         id,
-        questionText: `Quelle est la capitale de ${selectedCountry.name} ?`,
-        choices: options,
-        correctAnswer: selectedCountry.capital,
-        themeId: 4,
-    };
+        'multiple-choice',
+        questionText,
+        correctAnswer,
+        themeId,
+        options
+    );
 }

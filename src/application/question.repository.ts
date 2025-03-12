@@ -1,10 +1,10 @@
-import { Question, MultipleChoiceQuestion } from "../domain/Question";
+import { DirectQuestion, MultipleChoiceQuestion } from "../domain/Question";
 
 export interface MathQuestionRepository {
-    generateAddition(): Question
-    generateSubstraction(): Question
-    generateMultiplication(): Question
-    generateRandomOperation(): Question
+    generateAddition(): DirectQuestion
+    generateSubstraction(): DirectQuestion
+    generateMultiplication(): DirectQuestion
+    generateRandomOperation(): DirectQuestion
 }
 
 export interface GeographyQuestionRepository {

@@ -1,9 +1,9 @@
-import { Question } from '../../../domain/Question';
+import { DirectQuestion } from '../../../domain/Question';
 import { MathQuestionRepository } from '../../../application/question.repository';
 import { generateNumberId } from '../../../lib/id-generator';
 
 export class MathQuestionService implements MathQuestionRepository {
-    generateAddition(): Question {
+    generateAddition(): DirectQuestion {
         const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 100);
         const number2 = Math.floor(Math.random() * 100);
@@ -11,10 +11,16 @@ export class MathQuestionService implements MathQuestionRepository {
         const themeId = 1;
         const correctAnswer = (number1 + number2).toString();
 
-        return { id, questionText, correctAnswer, themeId };
+        return new DirectQuestion(
+            id,
+            'direct',
+            questionText,
+            correctAnswer,
+            themeId
+        );
     }
 
-    generateSubstraction(): Question {
+    generateSubstraction(): DirectQuestion {
         const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 100);
         const number2 = Math.floor(Math.random() * 100);
@@ -33,10 +39,16 @@ export class MathQuestionService implements MathQuestionRepository {
             correctAnswer = (0).toString();
         }
 
-        return { id, questionText, correctAnswer, themeId };
+        return new DirectQuestion(
+            id,
+            'direct',
+            questionText,
+            correctAnswer,
+            themeId
+        );
     }
 
-    generateMultiplication(): Question {
+    generateMultiplication(): DirectQuestion {
         const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 10);
         const number2 = Math.floor(Math.random() * 10);
@@ -44,17 +56,24 @@ export class MathQuestionService implements MathQuestionRepository {
         const themeId = 3;
         const correctAnswer = (number1 * number2).toString();
 
-        return { id, questionText, correctAnswer, themeId };
+        return new DirectQuestion(
+            id,
+            'direct',
+            questionText,
+            correctAnswer,
+            themeId
+        );
     }
 
-    generateRandomOperation(): Question {
+    generateRandomOperation(): DirectQuestion {
         const operations = [
             this.generateAddition.bind(this),
             this.generateSubstraction.bind(this),
             this.generateMultiplication.bind(this),
-        ]
+        ];
 
-        const randomOperation = operations[Math.floor(Math.random() * operations.length)];
+        const randomOperation =
+            operations[Math.floor(Math.random() * operations.length)];
         return randomOperation();
     }
 }
