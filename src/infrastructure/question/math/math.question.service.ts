@@ -8,15 +8,12 @@ export class MathQuestionService implements MathQuestionRepository {
         const number1 = Math.floor(Math.random() * 100);
         const number2 = Math.floor(Math.random() * 100);
         const questionText = `Quelle est le résultat de ${number1} + ${number2} ?`;
-        const themeId = 1;
         const correctAnswer = (number1 + number2).toString();
 
         return new DirectQuestion(
             id,
-            'direct',
             questionText,
             correctAnswer,
-            themeId
         );
     }
 
@@ -24,7 +21,6 @@ export class MathQuestionService implements MathQuestionRepository {
         const id = generateNumberId();
         const number1 = Math.floor(Math.random() * 100);
         const number2 = Math.floor(Math.random() * 100);
-        const themeId = 2;
         let questionText: string;
         let correctAnswer: string;
 
@@ -41,10 +37,8 @@ export class MathQuestionService implements MathQuestionRepository {
 
         return new DirectQuestion(
             id,
-            'direct',
             questionText,
             correctAnswer,
-            themeId
         );
     }
 
@@ -53,15 +47,12 @@ export class MathQuestionService implements MathQuestionRepository {
         const number1 = Math.floor(Math.random() * 10);
         const number2 = Math.floor(Math.random() * 10);
         const questionText = `Quel est le résultat de ${number1} x ${number2} ?`;
-        const themeId = 3;
         const correctAnswer = (number1 * number2).toString();
 
         return new DirectQuestion(
             id,
-            'direct',
             questionText,
             correctAnswer,
-            themeId
         );
     }
 

@@ -23,7 +23,6 @@ function getRandomCountry(array: Country[]): Country {
 
 export function generateEuropeanCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(europeanCountries);
     const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
@@ -46,16 +45,13 @@ export function generateEuropeanCountriesQuestion(): MultipleChoiceQuestion {
 
     return new MultipleChoiceQuestion(
         id,
-        'multiple-choice',
         questionText,
         correctAnswer,
-        themeId,
         options
     );
 }
 export function generateAfricanCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(africanCountries);
     const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
@@ -78,16 +74,13 @@ export function generateAfricanCountriesQuestion(): MultipleChoiceQuestion {
 
     return new MultipleChoiceQuestion(
         id,
-        'multiple-choice',
         questionText,
         correctAnswer,
-        themeId,
         options
     );
 }
 export function generateAsianCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(asianCountries);
     const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
@@ -109,16 +102,13 @@ export function generateAsianCountriesQuestion(): MultipleChoiceQuestion {
 
     return new MultipleChoiceQuestion(
         id,
-        'multiple-choice',
         questionText,
         correctAnswer,
-        themeId,
         options
     );
 }
 export function generateAmericanCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(americanCountries);
     const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
@@ -140,16 +130,13 @@ export function generateAmericanCountriesQuestion(): MultipleChoiceQuestion {
 
     return new MultipleChoiceQuestion(
         id,
-        'multiple-choice',
         questionText,
         correctAnswer,
-        themeId,
         options
     );
 }
 export function generateOceanicCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-    const themeId: number = 4;
     // Select a random country from the list.
     const selectedCountry = getRandomCountry(oceanicCountries);
     const questionText = `Quelle est la capitale de ${selectedCountry.name} ?`;
@@ -171,17 +158,14 @@ export function generateOceanicCountriesQuestion(): MultipleChoiceQuestion {
 
     return new MultipleChoiceQuestion(
         id,
-        'multiple-choice',
         questionText,
         correctAnswer,
-        themeId,
         options
     );
 }
 
 export function generateRandomCountriesQuestion(): MultipleChoiceQuestion {
     const id: number = generateNumberId();
-    const themeId: number = 4;
     const allCountries = [
         ...europeanCountries,
         ...africanCountries,
@@ -210,10 +194,8 @@ export function generateRandomCountriesQuestion(): MultipleChoiceQuestion {
 
     return new MultipleChoiceQuestion(
         id,
-        'multiple-choice',
         questionText,
         correctAnswer,
-        themeId,
         options
     );
 }

@@ -22,13 +22,14 @@ export function initDb() {
 
         CREATE TABLE IF NOT EXISTS subjects (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
+            name TEXT NOT NULL,
+            subjectPath TEXT NOT NULL
         );
 
         CREATE TABLE IF NOT EXISTS themes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            path TEXT NOT NULL,
+            themePath TEXT NOT NULL,
             subject_id INTEGER NOT NULL,
             FOREIGN KEY(subject_id) REFERENCES subjects(id) ON DELETE CASCADE ON UPDATE CASCADE
         );

@@ -1,5 +1,6 @@
+import { Theme } from './Theme';
 import {
-    Question,
+    DirectQuestion,
     TrueFalseQuestion,
     MultipleChoiceQuestion,
 } from './Question';
@@ -7,11 +8,17 @@ import {
 export class Quiz {
     constructor(
         public id: number,
-        public length: number,
+        public questionType: "multiple-choice" | "true-or-false" | "direct",
         public questions:
-            | Question[]
+            | DirectQuestion[]
             | MultipleChoiceQuestion[]
             | TrueFalseQuestion[],
-        public themeId: number
-    ) {}
+        public themeId: Theme['id']
+    ) {
+        this.id = id;
+        this.questionType = questionType;
+        this.questions = questions;
+        this.themeId = themeId;
+    }
+    
 }
