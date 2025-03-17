@@ -9,13 +9,18 @@ import { verifyToken } from "../../lib/token-verify";
 export class UserService implements UserRepository {
     async createAccount(username: string, password: string): Promise<void> {
         const id = await generateNanoid();
-        const hashedPassword = hashPassword(password);
+        const hashedPassword = await hashPassword(password);
 
         db.prepare('INSERT INTO users (id, username, password) VALUES (?, ?, ?)').run(id, username, hashedPassword);
     }
 
     async getUser(id: string): Promise<User | null> {
         const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User;
+        return user;
+    }
+
+    async getUserByUsername(username: string): Promise<User | null> {
+        const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as User;
         return user;
     }
 
@@ -67,7 +72,7 @@ export class UserService implements UserRepository {
 
         const isPasswordCorrect = await comparePassword(password, user.password);
         if (!isPasswordCorrect) {
-            throw new Error('Incorrect password');
+            throw new Error('Incorrect credentials');
         }
 
         return user;

@@ -2,15 +2,18 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { User } from '../../domain/User';
 import { UserService } from './user.service';
 import { hashPassword } from '../../lib/password-hasher';
-import { generateToken } from '../../lib/token-generator';
+import { config } from 'dotenv';
+
+config();
 
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
     createAccount = async (request: FastifyRequest, reply: FastifyReply) => {
         try {
-            const { username, password } = request.body as User;
-            let confirmation: string = request.body as string;
+            const { username, password, confirmation } = request.body as User;
+
+            console.log({ password, confirmation });
 
             if (!username || !password || !confirmation) {
                 reply
@@ -23,6 +26,14 @@ export class UserController {
                 reply
                     .status(400)
                     .send('Password and confirmation do not match');
+                return;
+            }
+
+            const userExist = await this.userService.getUserByUsername(
+                username
+            );
+            if (userExist) {
+                reply.status(400).send('Username already exists');
                 return;
             }
 
@@ -161,8 +172,13 @@ export class UserController {
                 return;
             }
 
-            const token = await generateToken(user);
-
+            const payload = {
+                id: user.id,
+                username: user.username,
+            };
+            const secret: string = process.env.JWT_SECRET || '';
+            const token = request.server.jwt.sign({ payload, secret });
+            console.log(token);
             reply.setCookie('token', token, {
                 httpOnly: true,
                 secure: true,

@@ -7,7 +7,11 @@ const userService = new UserService();
 const userController = new UserController(userService);
 
 export async function userRouter(fastify: FastifyInstance) {
-    fastify.post<{ Body: User }>('/users', {}, userController.createAccount);
+    fastify.post<{ Body: { username: string; password: string }}>(
+        '/users',
+        {},
+        userController.createAccount
+    );
     fastify.get<{ Params: { id: string } }>(
         '/users/:id',
         {},

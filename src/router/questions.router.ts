@@ -15,7 +15,7 @@ export async function questionsRouter(fastify: FastifyInstance) {
         mathQuizController.getAddition
     );
     fastify.get<{ Reply: Quiz }>(
-        '/math/soustraction',
+        '/math/substraction',
         {},
         mathQuizController.getSubstraction
     );
