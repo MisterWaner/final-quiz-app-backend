@@ -172,19 +172,9 @@ export class UserController {
                 return;
             }
 
-            const payload = {
-                id: user.id,
-                username: user.username,
-            };
-            const secret: string = process.env.JWT_SECRET || '';
-            const token = request.server.jwt.sign({ payload, secret });
-            console.log(token);
-            reply.setCookie('token', token, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'none',
-                maxAge: 3600 * 24,
-            });
+            request.session.user = user;
+            console.log(request.session);
+
             reply.status(200).send('Logged in successfully');
         } catch (error) {
             reply.status(500).send(error);
@@ -192,6 +182,23 @@ export class UserController {
     };
 
     logout = async (request: FastifyRequest, reply: FastifyReply) => {
-        reply.clearCookie('token').status(200).send('Logged out successfully');
+        if (request.session.user) {
+            request.session.destroy((error) => {
+                if (error) {
+                    reply.status(500).send(error);
+                    return;
+                } else {
+                    reply
+                        .clearCookie('sessionId')
+                        .status(200)
+                        .send('Logged out successfully');
+                }
+            });
+        } else {
+            reply
+                .clearCookie('sessionId')
+                .status(200)
+                .send('Logged out successfully');
+        }
     };
 }
