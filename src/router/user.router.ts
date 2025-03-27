@@ -8,28 +8,28 @@ const userController = new UserController(userService);
 
 export async function userRouter(fastify: FastifyInstance) {
     fastify.post<{ Body: { username: string; password: string }}>(
-        '/users',
+        '/registration',
         {},
         userController.createAccount
     );
     fastify.get<{ Params: { id: string } }>(
-        '/users/:id',
+        '/:id',
         {},
         userController.getUser
     );
     fastify.get<{ Reply: User[] }>('/users', {}, userController.getUsers);
     fastify.put<{ Params: { id: string }; Body: User }>(
-        '/users/:id/username',
+        '/:id/username',
         {},
         userController.updateUsername
     );
     fastify.put<{ Params: { id: string }; Body: User }>(
-        '/users/:id/pwd',
+        '/:id/pwd',
         {},
         userController.updatePassword
     );
     fastify.delete<{ Params: { id: string } }>(
-        '/users/:id',
+        '/:id',
         {},
         userController.deleteAccount
     );

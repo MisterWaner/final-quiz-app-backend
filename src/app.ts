@@ -66,7 +66,7 @@ fastify.get('/', (req, res) => {
 });
 fastify.register(subjectRouter);
 fastify.register(themeRouter);
-fastify.register(userRouter);
+fastify.register(userRouter, {prefix: '/users'});
 fastify.register(questionsRouter);
 
 export default fastify;
